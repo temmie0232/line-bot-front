@@ -78,7 +78,6 @@ const LineMessageUploader: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // FormDataオブジェクトを作成してファイルとメッセージを追加
       const formData = new FormData();
       if (file) {
         formData.append('file', file);
@@ -87,24 +86,25 @@ const LineMessageUploader: React.FC = () => {
         formData.append('message', message);
       }
 
-      // APIエンドポイントにPOSTリクエストを送信
+      // 本番環境のAPIエンドポイントを使用
       const response = await fetch('https://yokohama-uwu.love/api/send-line-message/', {
         method: 'POST',
         body: formData,
+        // credentials: 'include',  // 必要に応じて有効化
       });
 
       if (!response.ok) {
-        throw new Error('送信に失敗しました');
+        const errorData = await response.json().catch(() => ({ message: '通信エラーが発生しました' }));
+        throw new Error(errorData.message || '送信に失敗しました');
       }
 
-      // 送信成功時の処理
       setFile(null);
       setMessage('');
       alert('送信が完了しました');
 
     } catch (error) {
       console.error('送信エラー:', error);
-      alert('送信中にエラーが発生しました');
+      alert(error instanceof Error ? error.message : '送信中にエラーが発生しました');
     } finally {
       setIsLoading(false);
     }
