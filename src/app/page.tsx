@@ -88,7 +88,7 @@ const LineMessageUploader: React.FC = () => {
       }
 
       // APIエンドポイントにPOSTリクエストを送信
-      const response = await fetch('http://localhost:8000/api/send-line-message/', {
+      const response = await fetch('https://yokohama-uwu.love/api/send-line-message/', {
         method: 'POST',
         body: formData,
       });
