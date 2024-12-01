@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useRef, ChangeEvent, FormEvent, DragEvent } from 'react';
+import React, { useState, useRef, ChangeEvent, FormEvent, DragEvent, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -13,6 +13,12 @@ const LineMessageUploader: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);    // 送信中の状態を管理
   const [isDragging, setIsDragging] = useState<boolean>(false);  // ドラッグ状態を管理
   const fileInputRef = useRef<HTMLInputElement>(null);          // ファイル入力要素への参照
+
+  // ページ読み込み時にアラートを表示
+  useEffect(() => {
+    alert('!! メンテナンス中につき、動作不安定 !!');
+  }, []);
+
 
   // ファイル選択時のハンドラー
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
